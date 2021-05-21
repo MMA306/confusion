@@ -1,19 +1,11 @@
 // Importing Modules
-import React, { Component } from "react";
+import React from "react";
 import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
 
-// Creating a Class-Based Component for Dish Details
-class DishDetail extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            detail: this.props.detail
-        };
-    }
+// Creating a Class-Based Component for Dish Detail
 
     // Creating a Method to Render The Comments
-    renderComments(comments) {
+    function RenderComments({ comments }) {
         
         if (!comments) {
             return (<div></div>)
@@ -41,7 +33,7 @@ class DishDetail extends Component {
     }
 
     // Creating a Metohd to Render The Dishes
-    renderDish(dish) {
+    function RenderDish({ dish }) {
 
         if (dish) {
             return (
@@ -66,16 +58,16 @@ class DishDetail extends Component {
     
 
     // Main Render Method 
-    render() {
+    const DishDetail = (props) => {
         
-        const dish = this.props.dish
+        const dish = props.dish
 
         if (!dish) {
             return (<div></div>);
         }
         
-        const dishItem = this.renderDish(dish);
-        const dishComment = this.renderComments(dish.comments);
+        const dishItem = <RenderDish dish={props.dish} />
+        const dishComment = <RenderComments comments={props.dish.comments} />;
 
         return (
             <div className='container d-flex'>
@@ -84,7 +76,5 @@ class DishDetail extends Component {
             </div>
         )
     }
-
-}
 
 export default DishDetail;
