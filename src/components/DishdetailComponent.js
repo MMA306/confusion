@@ -20,16 +20,14 @@ class DishDetail extends Component {
         }
         const text = comments.map(comment => {
             return (
+                
                 <li key={comment.id}>
                     <p>{comment.comment}</p>
                     <p>-- {comment.author},
-                    {new Intl.DateTimeFormat('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: '2-digit'
-                    }).format(new Date(comment.date))}
+                    {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}
                     </p>
                 </li>
+                
             )
         })
         return (
@@ -38,8 +36,7 @@ class DishDetail extends Component {
                 <ul className='list-unstyled'>
                     {text}
                 </ul>
-
-            </div>
+            </div> 
         )
     }
 
@@ -81,7 +78,7 @@ class DishDetail extends Component {
         const dishComment = this.renderComments(dish.comments);
 
         return (
-            <div className='row'>
+            <div className='container d-flex'>
                 {dishItem}
                 {dishComment}
             </div>
