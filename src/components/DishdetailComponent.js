@@ -32,10 +32,11 @@ function RenderDish({ dish }) {
     }
 }
 
-function RenderComments({ dish, comments }) {
+function RenderComments({ comments, addComment, dishId }) {
+
     if (comments == null) {
         return (<div></div>)
-    }
+    }   
     const cmnts = comments.map(comment => {
         return (
 
@@ -59,11 +60,10 @@ function RenderComments({ dish, comments }) {
             <ul className='list-unstyled'>
                 {cmnts}
             </ul>
-            <CommentForm dish={dish} comments={comments} />
+            <CommentForm dishId={dishId} addComment={addComment} />
         </div>
     )
 }
-
 
 const DishDetail = (props) => {
 
@@ -94,7 +94,10 @@ const DishDetail = (props) => {
 
             <div className='row'>
                 <RenderDish dish={props.dish} />
-                <RenderComments dish={props.dish} comments={props.comments} />
+                <RenderComments comments={props.comments}
+                    addComment={props.addComment}
+                    dishId={props.dish.id}
+                />            
             </div>
         </div>
     )
@@ -124,6 +127,8 @@ class CommentForm extends Component {
     handleCommentFormSubmit(values) {
         console.log("Current State is: " + JSON.stringify(values));
         alert("Current State is: " + JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+
     }
 
 
@@ -225,3 +230,4 @@ class CommentForm extends Component {
 
 
 export default DishDetail;
+
